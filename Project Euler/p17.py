@@ -4,10 +4,15 @@ specialList = ["One","Two","Three","Four","Five","Six","Seven","Eight","Nine","T
 tensList = ["Twenty","Thirty","Forty","Fifty","sixty","seventy","eighty","ninety"]
 otherPlaces = ["Hundred","Thousand"]
 
-#worsk as inteded;did not sumbit answer rules are to vague I dont know if fourty should be spelt forty and if 990 should be nine hundred and nintey or nine hundred nintey
+#notices some problems in my code not in the question and fixed them, this ans is correct
 def twoDigits(ones,tens):
-    if ones != 0:
-        return tensList[tens-2]+" "+specialList[ones-1]
+    #Need special cases for teens and special case for only one number being returned
+    if tens == 1:
+        return specialList[ones+9]
+    if tens == 0:
+        return specialList[ones-1]
+    elif ones != 0:
+        return tensList[tens-2]+""+specialList[ones-1]
     else:
         return(tensList[tens-2])
     
@@ -16,6 +21,7 @@ def pEQuestion(n):
     for i in range(1,n+1):
         temp = list(str(i))
         if i < 20:
+            print((specialList[i-1]))
             count += len(specialList[i-1])
         else:
             if len(temp) == 2:
@@ -26,7 +32,7 @@ def pEQuestion(n):
                 else:
                     count += len(specialList[int(temp[0])-1]+""+otherPlaces[0]+"and"+twoDigits(int(temp[2]),int(temp[1])))
             elif len(temp) == 4:
-                count+= len(otherPlaces[1])
+                count+= len(specialList[0]+""+otherPlaces[1])
                 
     return count
 
