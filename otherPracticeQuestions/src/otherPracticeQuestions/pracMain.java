@@ -14,7 +14,7 @@ public class pracMain
 		//reverseString
 		String[] arys = new String[3];
 		System.out.println( numJewelsInStones("ebd","bbb"));
-		System.out.println( numUniqueEmails(arys));
+		//System.out.println( numUniqueEmails(arys));
 		
 	}
 	
@@ -75,16 +75,58 @@ public class pracMain
 		 	
 	     return count; 
 	 }
-	 ///////noy//not done
-	   public static int numUniqueEmails(String[] emails) 
-	   {
-		   /*
-		   String temp = "testemail@leetcode.com";
-		   String hold = temp.substring(0,temp.indexOf("@"));
-		   hold = temp.replaceAll("([\\.])", hold);
-		   hold = temp.
-		   System.out.println( hold);
-	        return 0;*/
-	   }
+	 
 
+	   public int[] twoSum(int[] nums, int target) 
+	    {
+	   		int newArray[] = new int[2];
+	   	
+		   		for(int i=1;i<nums.length;i++)
+		   		{
+		   			for(int j =0;j<nums.length;j++)
+		   			{
+	   					if(nums[i]+nums[j] == target && i !=j)
+	   					{
+	   						newArray[0] = j;
+	   						newArray[1] = i;
+	   					//	System.out.print(newArray[1]+","+newArray[0]);
+	   						return newArray;
+	   					}
+		   			}
+		   		}
+	   		
+
+	   		return newArray;
+	    }
 }
+/** Works
+* Definition for a binary tree node.
+* public class TreeNode {
+*     int val;
+*     TreeNode left;
+*     TreeNode right;
+*     TreeNode(int x) { val = x; }
+* }
+
+class Solution {
+   public int maxDepth(TreeNode root)
+   {
+       if(root == null)
+       {
+           return 0;
+       }
+       
+       int left = maxDepth(root.left)+1;
+       int right = maxDepth(root.right)+1;
+       
+       if(left>right)
+       {
+           return left;
+       }
+       else
+       {
+         return right;  
+       }
+       
+   }
+}*/
