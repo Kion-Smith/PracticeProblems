@@ -1,57 +1,47 @@
 #Project Euler question 49
 #What 12-digit number do you form by concatenating the three terms in this sequence?
 from itertools import permutations
-#doesnt work
-def getPrimes(bound):
-    primes = [1]*(bound+1)
+#works now
+
+def getPrimes(low,high):
+    primes = []
+    temp = [1]*(high+1)
     p = 2
-    while p*p <= bound:
-        if primes[p] == 1:
-            for y in range(p*p,bound+1,p):
-                primes[y] = 0
+    while p*p <= high:
+        if temp[p] == 1:
+            for y in range(p*p,high+1,p):
+                temp[y] = 0
         p+=1
+
+    for z in range(low,len(temp)):
+       if temp[z]:
+           primes.append(z)
     return primes
         
-def isPrime(primes, num):
-    if primes[num] == 1:
-        return True
-    return False
-
-def getPermPrimes(primes,num):
+def getPermPrimes(num,primes):
     allPermList = permutations(str(num))
     permsList = []
     for z in list(allPermList):
-        if  isPrime(primes,int(''.join(z))):
+        if int(''.join(z))in primes and len(str(''.join(z)))>=4 :
             permsList.append(int(''.join(z)))
+    return permsList
 
-    if len(permsList) >= 3:
-        return permsList
-    else:
-        return -1
 
-def permsRelation(permList):
-    if permList == -1:
-        return -1
-    
-    temp = []
+def permRelation(permList):
     for i in range(len(permList)):
         for j in range(i,len(permList)):
-            if permList[i] - permList[j] not in temp:
-                temp.append(permList[i] - permList[j])
-            else:
-                return permList[i] - permList[j]
+            if permList[i] != permList[j]:
+                dif = permList[j] - permList[i]
+                if permList[j]+dif in permList:
+                    return [permList[i],permList[j],permList[j]+dif]
     return -1
 
 def pEQuestion():
-    numProp = []
-    primes = getPrimes(100000)
-    for i in range(1000,100001):
-        if isPrime(primes,i) and permsRelation(getPermPrimes(primes,i)) > 0:
-            offset = permsRelation(getPermPrimes(primes,i))
-            if isPrime(primes,primes[i+offset]) and isPrime(primes,primes[i+offset*2]):
-                 
-
+    primes = getPrimes(1000,100000)
+    for i in range(len(primes)):
+        permList = getPermPrimes(primes[i],primes)
+        if len(permList)>= 3 and permRelation(permList) != -1 and 1487 not in permList:
+            return permRelation(permList)     
     return 0
     
 print(pEQuestion())
-
