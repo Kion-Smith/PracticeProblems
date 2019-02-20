@@ -19,12 +19,22 @@ def getPrimes(bound):
     return primes
         
 
-
+#solution   not mine, slightly adapted to be faster, found at https://radiusofcircle.blogspot.com/2016/06/problem-50-project-euler-solution-with-python.html
 def pEQuestion(bound):
     primes = getPrimes(bound)
-    i=0
-    while primes[i]<1000000:
-        print(primes[i])
-        i+=1
-        
-print(getPrimes(1000000)[-1])
+    tempMax = [0,0]
+    innerBound = len(primes)
+    for i in range(len(primes)):
+        for j in range(i+tempMax[0],innerBound):
+            cur = sum(primes[i:j])
+            if cur<bound:
+                if cur in primes:
+                    tempMax[0] = j-i
+                    tempMax[1] = cur
+            else:
+                innerBound = j+1
+                break
+            
+    print(tempMax[1])
+                
+print(pEQuestion(1000000))
